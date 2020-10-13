@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "paulstweaks",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Paul's Tweaks",
+  "description": "This is a culmination of the tweaks Paul wants to add to the game.",
   "authors": [
-    "Me!"
+    "TheCoolestPaul",
+    "The Boys (Inspiration)"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -14,16 +15,16 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.thirdshift.paulstweaks.PaulsTweaks"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "paulstweaks.mixins.json"
   ],
 
   "depends": {
