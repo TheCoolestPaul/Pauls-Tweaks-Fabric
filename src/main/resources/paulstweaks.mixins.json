@@ -4,8 +4,9 @@
   "package": "net.thirdshift.paulstweaks.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "RecipeManagerMixin",
-    "BlockMixin"
+    "BlockMixin",
+    "ComposterMixin",
+    "RecipeManagerMixin"
   ],
   "client": [
     "PaulsTweaksMixin"
