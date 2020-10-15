@@ -47,6 +47,5 @@ public class BlockMixin {
 			case 3: if (Math.random() > 0.90) return;
 		}
 		item.setDamage(item.getDamage()-2);
-		System.out.println("Mended it");
 	}
 }
