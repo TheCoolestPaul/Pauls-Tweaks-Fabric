@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.thirdshift.paulstweaks.enchantments.NetherMending;
 import net.thirdshift.paulstweaks.enchantments.StoneMending;
+import net.thirdshift.paulstweaks.item.RemoveTotemItem;
 import net.thirdshift.paulstweaks.recipe.RecipeJSON;
 
 import java.util.HashMap;
@@ -28,8 +29,11 @@ public class PaulsTweaks implements ModInitializer {
 	public static Enchantment STONE_MENDING;
 	public static Enchantment NETHER_MENDING;
 
+	public static RemoveTotemItem TOTEM_OF_REMOVAL;
+
 	@Override
 	public void onInitialize() {
+		TOTEM_OF_REMOVAL = Registry.register(Registry.ITEM, new Identifier("paulstweaks", "totem_of_removal"), new RemoveTotemItem());
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
