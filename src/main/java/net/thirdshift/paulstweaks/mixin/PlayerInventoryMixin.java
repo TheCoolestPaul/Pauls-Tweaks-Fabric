@@ -2,7 +2,6 @@ package net.thirdshift.paulstweaks.mixin;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.collection.DefaultedList;
 import net.thirdshift.paulstweaks.PaulsTweaks;
 import org.spongepowered.asm.mixin.Final;
@@ -24,15 +23,7 @@ public abstract class PlayerInventoryMixin {
 	@Inject(at = @At("INVOKE"), method = "addStack(Lnet/minecraft/item/ItemStack;)I")
 	private void addStackInvoke(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
 		if (contains(PaulsTweaks.TOTEM_OF_REMOVAL.getDefaultStack())){
-			if (
-						stack.isItemEqual(Items.COBBLESTONE.getDefaultStack()) ||
-						stack.isItemEqual(Items.NETHERRACK.getDefaultStack()) ||
-						stack.isItemEqual(Items.ANDESITE.getDefaultStack()) ||
-						stack.isItemEqual(Items.DIORITE.getDefaultStack()) ||
-						stack.isItemEqual(Items.GRANITE.getDefaultStack()) ||
-						stack.isItemEqual(Items.BASALT.getDefaultStack())
-				) {
-
+			if (stack.getItem().isIn(PaulsTweaks.TOTEM_REMOVAL_TAG)){
 				stack.setCount(0);
 			}
 		}
