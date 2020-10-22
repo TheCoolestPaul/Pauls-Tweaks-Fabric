@@ -2,9 +2,9 @@ package net.thirdshift.paulstweaks;
 
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.thirdshift.paulstweaks.enchantments.Enlightenment;
 import net.thirdshift.paulstweaks.enchantments.NetherMending;
 import net.thirdshift.paulstweaks.enchantments.StoneMending;
 import net.thirdshift.paulstweaks.recipe.RecipeJSON;
@@ -25,8 +25,9 @@ public class PaulsTweaks implements ModInitializer {
 			"warped"
 	};
 
-	public static Enchantment STONE_MENDING;
-	public static Enchantment NETHER_MENDING;
+	public static StoneMending STONE_MENDING;
+	public static NetherMending NETHER_MENDING;
+	public static Enlightenment ENLIGHTENMENT;
 
 	@Override
 	public void onInitialize() {
@@ -34,8 +35,9 @@ public class PaulsTweaks implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		STONE_MENDING = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "stone_mending"), (Enchantment) new StoneMending());
-		NETHER_MENDING = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "nether_mending"), (Enchantment) new NetherMending());
+		STONE_MENDING = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "stone_mending"), new StoneMending());
+		NETHER_MENDING = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "nether_mending"), new NetherMending());
+		ENLIGHTENMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "enlightenment"), new Enlightenment());
 
 		for (String woodType : woodTypes){
 			for (int i = 0; i < 4; i++) {

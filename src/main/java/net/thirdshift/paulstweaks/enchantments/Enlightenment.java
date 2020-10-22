@@ -1,0 +1,16 @@
+package net.thirdshift.paulstweaks.enchantments;
+
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.entity.EquipmentSlot;
+
+public class Enlightenment extends Enchantment {
+	public Enlightenment(){
+		super(Rarity.RARE, EnchantmentTarget.BREAKABLE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+	}
+
+	@Override
+	public int getMaxLevel() {
+		return 10;
+	}
+}
