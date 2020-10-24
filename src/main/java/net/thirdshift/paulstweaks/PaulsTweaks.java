@@ -2,6 +2,7 @@ package net.thirdshift.paulstweaks;
 
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
