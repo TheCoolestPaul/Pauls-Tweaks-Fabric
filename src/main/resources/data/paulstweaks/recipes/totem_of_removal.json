@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "paulstweaks:totem_body"
+    },
+    {
+      "item": "paulstweaks:core_of_removal"
+    },
+    {
+      "item": "minecraft:lapis_block"
+    },
+    {
+      "item": "minecraft:redstone_block"
+    }
+  ],
+  "result": {
+    "item": "paulstweaks:totem_of_removal"
+  }
+}
