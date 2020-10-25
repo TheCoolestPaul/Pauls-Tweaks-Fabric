@@ -1,5 +1,8 @@
 {
     "enchantment.paulstweaks.stone_mending" : "Stone Mending",
     "enchantment.paulstweaks.nether_mending" : "Nether Mending",
-    "enchantment.paulstweaks.enlightenment": "Enlightenment"
+    "enchantment.paulstweaks.enlightenment": "Enlightenment",
+    "item.paulstweaks.totem_of_removal": "Totem of Removal",
+    "item.paulstweaks.totem_body": "Totem Body",
+    "item.paulstweaks.core_of_removal": "Core of Removal"
 }
