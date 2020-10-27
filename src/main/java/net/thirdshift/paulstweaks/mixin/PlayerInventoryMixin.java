@@ -20,9 +20,15 @@ public abstract class PlayerInventoryMixin {
 
 	@Shadow public abstract boolean contains(ItemStack itemStack);
 
+	@Shadow public abstract int getSlotWithStack(ItemStack stack);
+
 	@Inject(at = @At("INVOKE"), method = "addStack(Lnet/minecraft/item/ItemStack;)I")
 	private void addStackInvoke(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
 		if (contains(PaulsTweaks.TOTEM_OF_REMOVAL.getDefaultStack())){
+			int slotId = getSlotWithStack(PaulsTweaks.TOTEM_OF_REMOVAL.getDefaultStack());
+			if (slotId==-1){
+				return; // Do nothing if it's in offhand
+			}
 			if (stack.getItem().isIn(PaulsTweaks.TOTEM_REMOVAL_TAG)){
 				stack.setCount(0);
 			}
