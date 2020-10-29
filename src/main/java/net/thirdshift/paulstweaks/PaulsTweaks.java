@@ -2,17 +2,26 @@ package net.thirdshift.paulstweaks;
 
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.thirdshift.paulstweaks.block.bookbinder.BookBinderBlock;
+import net.thirdshift.paulstweaks.block.bookbinder.BookBinderBlockEntity;
 import net.thirdshift.paulstweaks.enchantments.Enlightenment;
 import net.thirdshift.paulstweaks.enchantments.NetherMending;
 import net.thirdshift.paulstweaks.enchantments.StoneMending;
 import net.thirdshift.paulstweaks.item.RemoveTotemItem;
 import net.thirdshift.paulstweaks.recipe.RecipeJSON;
+import net.thirdshift.paulstweaks.screen.bookbinder.BookBinderGuiDescription;
 
 import java.util.HashMap;
 
@@ -40,6 +49,11 @@ public class PaulsTweaks implements ModInitializer {
 	public static Item CORE_OF_REMOVAL;
 	public static Tag<Item> TOTEM_REMOVAL_TAG;
 
+	public static BlockEntityType<BookBinderBlockEntity> BOOK_BINDER_BLOCK_ENTITY;
+	public static Block BOOK_BINDER_BLOCK;
+	public static BlockItem BOOK_BINDER_ITEM;
+	public static ScreenHandlerType<BookBinderGuiDescription> BOOK_BINDER_SCREEN_HANDLER_TYPE;
+
 	@Override
 	public void onInitialize() {
 		TOTEM_REMOVAL_TAG = TagRegistry.item(new Identifier( MOD_ID, "totem_removal"));
@@ -50,6 +64,11 @@ public class PaulsTweaks implements ModInitializer {
 		STONE_MENDING = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "stone_mending"), new StoneMending());
 		NETHER_MENDING = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "nether_mending"), new NetherMending());
 		ENLIGHTENMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("paulstweaks", "enlightenment"), new Enlightenment());
+
+		BOOK_BINDER_BLOCK = Registry.register(Registry.BLOCK, new Identifier( MOD_ID, "book_binder"), new BookBinderBlock());
+		BOOK_BINDER_ITEM = Registry.register(Registry.ITEM, new Identifier( MOD_ID, "book_binder"), new BlockItem(BOOK_BINDER_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+		BOOK_BINDER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier( MOD_ID, "book_binder"), BlockEntityType.Builder.create(BookBinderBlockEntity::new, BOOK_BINDER_BLOCK).build(null));
+		BOOK_BINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(new Identifier( MOD_ID, "book_binder"), (syncId, inventory) -> new BookBinderGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY));
 
 		for (String woodType : woodTypes){
 			for (int i = 0; i < 4; i++) {

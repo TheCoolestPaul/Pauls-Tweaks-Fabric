@@ -21,6 +21,9 @@
   "entrypoints": {
     "main": [
       "net.thirdshift.paulstweaks.PaulsTweaks"
+    ],
+    "client": [
+      "net.thirdshift.paulstweaks.PaulsTweaksClient"
     ]
   },
   "mixins": [
