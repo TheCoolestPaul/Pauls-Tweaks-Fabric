@@ -2,8 +2,11 @@ package net.thirdshift.paulstweaks;
 
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.item.Item;
@@ -15,6 +18,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
+import net.thirdshift.paulstweaks.enchantments.StoneMending;
 import net.thirdshift.paulstweaks.item.SoulGem;
 import net.thirdshift.paulstweaks.util.RecipeJSON;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +40,7 @@ public class Paulstweaks implements ModInitializer {
     public static final String MOD_ID = "paulstweaks";
     public static final RecipeJSON recipeJSON = new RecipeJSON();
     public static HashMap<Identifier, JsonObject> ModdedRecipes = new HashMap<>();
+    public static final Enchantment STONE_MENDING = new StoneMending();
     public static final String[] woodTypes = new String[]{
             "oak",
             "spruce",
@@ -58,6 +63,8 @@ public class Paulstweaks implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "gold_soulgem_ring"), GOLD_RING);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "netherite_soulgem_ring"), NETHERITE_RING);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "soulgem_core"), SOUL_GEM_CORE);
+
+        Registry.register(Registry.ENCHANTMENT, new Identifier(MOD_ID, "stone_mending"), STONE_MENDING);
         UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
             ItemStack itemStack = player.getStackInHand(hand);
             if (entity instanceof FishEntity) {
@@ -79,6 +86,14 @@ public class Paulstweaks implements ModInitializer {
                 }
             }
             return ActionResult.PASS;
+        }));
+        PlayerBlockBreakEvents.AFTER.register(((world, player, pos, state, blockEntity) -> {
+            if (world.getServer()!=null){
+                ItemStack itemStack = player.getMainHandStack();
+                if (itemStack!=null && EnchantmentHelper.getLevel(STONE_MENDING, itemStack) > 0) {
+                    int level = EnchantmentHelper.getLevel(STONE_MENDING, itemStack);
+                }
+            }
         }));
         for (String woodType : woodTypes){
             for (int i = 0; i < 4; i++) {
