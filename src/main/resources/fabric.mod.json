@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "paulstweaks",
+  "version": "${version}",
+  "name": "Paulstweaks",
+  "description": "",
+  "authors": [
+    "TheCoolestPaul",
+    "TheBoys"
+  ],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/paulstweaks/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.thirdshift.paulstweaks.client.PaulstweaksClient"
+    ],
+    "main": [
+      "net.thirdshift.paulstweaks.Paulstweaks"
+    ]
+  },
+  "mixins": [
+    "paulstweaks.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.8",
+    "fabric": "*",
+    "minecraft": "1.18"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.thirdshift.paulstweaks.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "EatGrassGoalMixin",
+    "RecipeManagerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
