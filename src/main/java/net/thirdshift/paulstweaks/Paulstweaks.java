@@ -3,9 +3,11 @@ package net.thirdshift.paulstweaks;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
@@ -26,6 +28,11 @@ public class Paulstweaks implements ModInitializer {
     public static final Item IRON_SOUL_GEM = new SoulGem(10);
     public static final Item GOLD_SOUL_GEM = new SoulGem(15);
     public static final Item NETHERITE_SOUL_GEM = new SoulGem(30);
+    public static final Item SOUL_GEM_CORE = new Item(new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item COPPER_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item IRON_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item GOLD_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item NETHERITE_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
     public static final String MOD_ID = "paulstweaks";
     public static final RecipeJSON recipeJSON = new RecipeJSON();
     public static HashMap<Identifier, JsonObject> ModdedRecipes = new HashMap<>();
@@ -46,6 +53,11 @@ public class Paulstweaks implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "iron_soulgem"), IRON_SOUL_GEM);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "gold_soulgem"), GOLD_SOUL_GEM);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "netherite_soulgem"), NETHERITE_SOUL_GEM);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "copper_soulgem_ring"), COPPER_RING);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "iron_soulgem_ring"), IRON_RING);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "gold_soulgem_ring"), GOLD_RING);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "netherite_soulgem_ring"), NETHERITE_RING);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "soulgem_core"), SOUL_GEM_CORE);
         UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
             ItemStack itemStack = player.getStackInHand(hand);
             if (entity instanceof FishEntity) {

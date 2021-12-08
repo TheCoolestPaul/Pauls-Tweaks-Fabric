@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "paulstweaks:netherite_soulgem_ring"
+    },
+    {
+      "item": "paulstweaks:soulgem_core"
+    }
+  ],
+  "result": {
+    "item": "paulstweaks:netherite_soulgem",
+    "count": 1
+  }
+}

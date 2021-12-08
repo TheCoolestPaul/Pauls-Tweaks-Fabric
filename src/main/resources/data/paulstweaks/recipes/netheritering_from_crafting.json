@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "CGC",
+    " D "
+  ],
+  "key" : {
+    "C" : {
+      "item": "minecraft:netherite_ingot"
+    },
+    "G" : {
+      "item": "minecraft:glass"
+    },
+    "D" : {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "paulstweaks:netherite_soulgem_ring",
+    "count": 1
+  }
+}

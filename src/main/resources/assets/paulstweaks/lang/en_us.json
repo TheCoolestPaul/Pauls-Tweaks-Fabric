@@ -2,5 +2,10 @@
   "item.paulstweaks.copper_soulgem": "Copper Soulgem",
   "item.paulstweaks.iron_soulgem": "Iron Soulgem",
   "item.paulstweaks.gold_soulgem": "Gold Soulgem",
-  "item.paulstweaks.netherite_soulgem": "Netherite Soulgem"
+  "item.paulstweaks.netherite_soulgem": "Netherite Soulgem",
+  "item.paulstweaks.copper_soulgem_ring": "Copper Soulgem Ring",
+  "item.paulstweaks.iron_soulgem_ring": "Iron Soulgem Ring",
+  "item.paulstweaks.gold_soulgem_ring": "Gold Soulgem Ring",
+  "item.paulstweaks.netherite_soulgem_ring": "Netherite Soulgem Ring",
+  "item.paulstweaks.soulgem_core": "Soulgem Core"
 }

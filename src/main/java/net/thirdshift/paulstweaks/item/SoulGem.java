@@ -2,20 +2,18 @@ package net.thirdshift.paulstweaks.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
 
 public class SoulGem extends Item {
     private final int MAX_LEVELS;
     public SoulGem(int maxLevel) {
-        super(new FabricItemSettings().group(ItemGroup.MISC).fireproof());
+        super(new FabricItemSettings().group(ItemGroup.MISC).fireproof().maxCount(1));
         this.MAX_LEVELS = maxLevel;
     }
 
@@ -24,24 +22,32 @@ public class SoulGem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        if (itemStack.getNbt() != null && itemStack.getNbt().getBoolean("hasLevels")){
-            itemStack.getNbt().putBoolean("hasLevel", false);
-            user.addExperienceLevels(getMAX_LEVELS());
-            return TypedActionResult.success(user.getStackInHand(hand));
-        }
-        return super.use(world, user, hand);
-    }
-
-    @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.ENCHANTING_TABLE) && context.getPlayer()!=null){
+        if(context.getPlayer()!=null && context.getWorld().getServer()!=null){
             ItemStack itemStack = context.getPlayer().getStackInHand(context.getHand());
-            if (itemStack.getNbt() != null && itemStack.getNbt().getBoolean("hasLevels")) {
-                if (context.getPlayer().experienceLevel >= getMAX_LEVELS() || context.getPlayer().isCreative()) {
-                    itemStack.getNbt().putBoolean("hasLevels", true);
-                    context.getPlayer().experienceLevel-=getMAX_LEVELS();
+            itemStack.addHideFlag(ItemStack.TooltipSection.ENCHANTMENTS);
+            if (context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.ENCHANTING_TABLE)) {
+                if (itemStack.getNbt() == null || !itemStack.getNbt().getBoolean("hasLevels")) {
+                    if (context.getPlayer().isCreative() || context.getPlayer().experienceLevel >= getMAX_LEVELS()) {
+                        if (itemStack.getNbt() != null) {
+                            itemStack.getNbt().putBoolean("hasLevels", true);
+                        } else {
+                            NbtCompound nbt = new NbtCompound();
+                            nbt.putBoolean("hasLevels", true);
+                            itemStack.writeNbt(nbt);
+                            itemStack.setNbt(itemStack.writeNbt(nbt));
+                        }
+                        itemStack.addEnchantment(Enchantments.LUCK_OF_THE_SEA, 1);
+                        context.getPlayer().addExperienceLevels(-getMAX_LEVELS());
+                        return ActionResult.SUCCESS;
+                    }
+                }
+            } else {
+                if (itemStack.getNbt() != null && itemStack.getNbt().getBoolean("hasLevels")) {
+                    itemStack.getNbt().remove("hasLevels");
+                    itemStack.removeSubNbt("Enchantments");
+                    itemStack.removeSubNbt("StoredEnchantments");
+                    context.getPlayer().addExperienceLevels(getMAX_LEVELS());
                     return ActionResult.SUCCESS;
                 }
             }

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "paulstweaks:item/gold_soulgem_ring"
+  }
+}
