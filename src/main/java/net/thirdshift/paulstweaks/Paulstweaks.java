@@ -14,10 +14,13 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.thirdshift.paulstweaks.enchantments.NetherMending;
 import net.thirdshift.paulstweaks.enchantments.StoneMending;
 import net.thirdshift.paulstweaks.item.SoulGem;
 import net.thirdshift.paulstweaks.util.RecipeJSON;
@@ -41,6 +44,7 @@ public class Paulstweaks implements ModInitializer {
     public static final RecipeJSON recipeJSON = new RecipeJSON();
     public static HashMap<Identifier, JsonObject> ModdedRecipes = new HashMap<>();
     public static final Enchantment STONE_MENDING = new StoneMending();
+    public static final Enchantment NETHER_MENDING = new NetherMending();
     public static final String[] woodTypes = new String[]{
             "oak",
             "spruce",
@@ -51,6 +55,19 @@ public class Paulstweaks implements ModInitializer {
             "crimson",
             "warped"
     };
+
+    public static void mendTool(World world, ItemStack stack, int level) {
+        int random = world.getRandom().nextInt(10);
+        if (level==1) {
+            if (random<=3)
+                stack.setDamage(stack.getDamage()-1);
+        } else if(level==2) {
+            if (random<=6)
+                stack.setDamage(stack.getDamage()-2);
+        } else {
+            stack.setDamage(stack.getDamage()-3);
+        }
+    }
 
     @Override
     public void onInitialize() {
@@ -65,6 +82,8 @@ public class Paulstweaks implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "soulgem_core"), SOUL_GEM_CORE);
 
         Registry.register(Registry.ENCHANTMENT, new Identifier(MOD_ID, "stone_mending"), STONE_MENDING);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(MOD_ID, "nether_mending"), NETHER_MENDING);
+
         UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
             ItemStack itemStack = player.getStackInHand(hand);
             if (entity instanceof FishEntity) {
@@ -88,10 +107,17 @@ public class Paulstweaks implements ModInitializer {
             return ActionResult.PASS;
         }));
         PlayerBlockBreakEvents.AFTER.register(((world, player, pos, state, blockEntity) -> {
-            if (world.getServer()!=null){
-                ItemStack itemStack = player.getMainHandStack();
-                if (itemStack!=null && EnchantmentHelper.getLevel(STONE_MENDING, itemStack) > 0) {
-                    int level = EnchantmentHelper.getLevel(STONE_MENDING, itemStack);
+            if (world.getServer()!=null) {
+                if (BlockTags.BASE_STONE_OVERWORLD.contains(state.getBlock())) {
+                    ItemStack itemStack = player.getMainHandStack();
+                    if (itemStack != null && EnchantmentHelper.getLevel(STONE_MENDING, itemStack) > 0) {
+                        mendTool(world, itemStack, EnchantmentHelper.getLevel(STONE_MENDING, itemStack));
+                    }
+                } else if (BlockTags.BASE_STONE_NETHER.contains(state.getBlock())) {
+                    ItemStack itemStack = player.getMainHandStack();
+                    if (itemStack != null && EnchantmentHelper.getLevel(NETHER_MENDING, itemStack) > 0){
+                        mendTool(world, itemStack, EnchantmentHelper.getLevel(NETHER_MENDING, itemStack));
+                    }
                 }
             }
         }));
