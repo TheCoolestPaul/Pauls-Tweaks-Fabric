@@ -20,8 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import net.thirdshift.paulstweaks.enchantments.NetherMending;
-import net.thirdshift.paulstweaks.enchantments.StoneMending;
+import net.thirdshift.paulstweaks.enchantments.EnchantMending;
 import net.thirdshift.paulstweaks.item.SoulGem;
 import net.thirdshift.paulstweaks.util.RecipeJSON;
 import org.apache.logging.log4j.LogManager;
@@ -43,8 +42,8 @@ public class Paulstweaks implements ModInitializer {
     public static final String MOD_ID = "paulstweaks";
     public static final RecipeJSON recipeJSON = new RecipeJSON();
     public static HashMap<Identifier, JsonObject> ModdedRecipes = new HashMap<>();
-    public static final Enchantment STONE_MENDING = new StoneMending();
-    public static final Enchantment NETHER_MENDING = new NetherMending();
+    public static final Enchantment STONE_MENDING = new EnchantMending();
+    public static final Enchantment NETHER_MENDING = new EnchantMending();
     public static final String[] woodTypes = new String[]{
             "oak",
             "spruce",
@@ -59,13 +58,15 @@ public class Paulstweaks implements ModInitializer {
     public static void mendTool(World world, ItemStack stack, int level) {
         int random = world.getRandom().nextInt(10);
         if (level==1) {
-            if (random<=3)
-                stack.setDamage(stack.getDamage()-1);
+            if (random<=3) {
+                stack.setDamage(stack.getDamage() - 3);
+            }
         } else if(level==2) {
-            if (random<=6)
-                stack.setDamage(stack.getDamage()-2);
+            if (random<=6) {
+                stack.setDamage(stack.getDamage() - 4);
+            }
         } else {
-            stack.setDamage(stack.getDamage()-3);
+            stack.setDamage(stack.getDamage()-5);
         }
     }
 
