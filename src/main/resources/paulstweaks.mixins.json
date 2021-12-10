@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "EatGrassGoalMixin",
+    "MiningToolItemMixin",
     "RecipeManagerMixin"
   ],
   "client": [
