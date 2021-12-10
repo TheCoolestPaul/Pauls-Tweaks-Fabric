@@ -3,6 +3,7 @@ package net.thirdshift.paulstweaks.mixin;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -24,6 +25,7 @@ public abstract class CropBlockMixin extends AbstractBlockMixin{
             if (!world.isClient) {
                 world.setBlockState(pos, ((CropBlock) (Object) this).withAge(0));
                 Block.dropStacks(state, world, pos, null, player, player.getStackInHand(hand));
+                player.world.spawnEntity(new ExperienceOrbEntity(player.world, pos.getX(), pos.getY(), pos.getZ(), world.getRandom().nextInt(6) + 1));
             } else {
                 player.playSound(SoundEvents.ITEM_CROP_PLANT, 1.0f, 1.0f);
             }

@@ -3,6 +3,7 @@ package net.thirdshift.paulstweaks.mixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SugarCaneBlock;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -37,6 +38,7 @@ public class ReedBlockMixin extends AbstractBlockMixin {
         // else break the 2nd from bottom cane
         if (!world.isClient) {
             world.breakBlock(bottom.up(2), true);
+            player.world.spawnEntity(new ExperienceOrbEntity(player.world, pos.getX(), pos.getY(), pos.getZ(), world.getRandom().nextInt(6) + 1));
         } else {
             player.playSound(SoundEvents.ITEM_CROP_PLANT, 1.0f, 1.0f);
         }
