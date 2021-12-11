@@ -5,12 +5,18 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.HayBlock;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -36,6 +42,7 @@ public class Paulstweaks implements ModInitializer {
     public static final Item IRON_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
     public static final Item GOLD_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
     public static final Item NETHERITE_RING = new Item(new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Block SUGAR_CANE_BLOCK = new HayBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC, MapColor.PALE_GREEN).strength(0.5f).sounds(BlockSoundGroup.GRASS));
     public static final String MOD_ID = "paulstweaks";
     public static final RecipeJSON recipeJSON = new RecipeJSON();
     public static HashMap<Identifier, JsonObject> ModdedRecipes = new HashMap<>();
@@ -78,6 +85,9 @@ public class Paulstweaks implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "gold_soulgem_ring"), GOLD_RING);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "netherite_soulgem_ring"), NETHERITE_RING);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "soulgem_core"), SOUL_GEM_CORE);
+
+        Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "sugar_cane_block"), SUGAR_CANE_BLOCK);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "sugar_cane_block"), new BlockItem(SUGAR_CANE_BLOCK, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
 
         Registry.register(Registry.ENCHANTMENT, new Identifier(MOD_ID, "stone_mending"), STONE_MENDING);
         Registry.register(Registry.ENCHANTMENT, new Identifier(MOD_ID, "nether_mending"), NETHER_MENDING);
