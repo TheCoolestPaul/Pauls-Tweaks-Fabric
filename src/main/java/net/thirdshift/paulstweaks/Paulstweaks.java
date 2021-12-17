@@ -12,6 +12,7 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.item.*;
@@ -59,19 +60,23 @@ public class Paulstweaks implements ModInitializer {
             "warped"
     };
 
-    public static void mendTool(World world, ItemStack stack, int level) {
+    public static boolean mendTool(World world, ItemStack stack, int level) {
         int random = world.getRandom().nextInt(10);
         if (level==1) {
             if (random<=3) {
-                stack.setDamage(stack.getDamage() - 3);
+                stack.setDamage(stack.getDamage() - 10);
+                return true;
             }
         } else if(level==2) {
             if (random<=6) {
-                stack.setDamage(stack.getDamage() - 4);
+                stack.setDamage(stack.getDamage() - 10);
+                return true;
             }
         } else {
-            stack.setDamage(stack.getDamage()-5);
+            stack.setDamage(stack.getDamage()-10);
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -119,12 +124,16 @@ public class Paulstweaks implements ModInitializer {
                 if (BlockTags.BASE_STONE_OVERWORLD.contains(state.getBlock())) {
                     ItemStack itemStack = player.getMainHandStack();
                     if (itemStack != null && EnchantmentHelper.getLevel(STONE_MENDING, itemStack) > 0) {
-                        mendTool(world, itemStack, EnchantmentHelper.getLevel(STONE_MENDING, itemStack));
+                        if (mendTool(world, itemStack, EnchantmentHelper.getLevel(STONE_MENDING, itemStack))){
+                            player.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
+                        }
                     }
                 } else if (BlockTags.BASE_STONE_NETHER.contains(state.getBlock())) {
                     ItemStack itemStack = player.getMainHandStack();
                     if (itemStack != null && EnchantmentHelper.getLevel(NETHER_MENDING, itemStack) > 0){
-                        mendTool(world, itemStack, EnchantmentHelper.getLevel(NETHER_MENDING, itemStack));
+                        if (mendTool(world, itemStack, EnchantmentHelper.getLevel(NETHER_MENDING, itemStack))){
+                            player.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
+                        }
                     }
                 }
             }
