@@ -87,7 +87,7 @@ public class Paulstweaks implements ModInitializer {
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);
                             }
-                            world.emitGameEvent(GameEvent.ENTITY_PLACE, player);
+                            world.emitGameEvent(player, GameEvent.ENTITY_PLACE, player.getPos());
                             return ActionResult.SUCCESS;
                         }
                     }

@@ -22,11 +22,11 @@ public class ItemStackMixin {
         int random = world.getRandom().nextInt(10);
         if (level==1) {
             if (random<=3) {
-                stack.setDamage(stack.getDamage() - 10);
+                stack.setDamage(stack.getDamage() - 3);
             }
         } else if(level==2) {
             if (random<=6) {
-                stack.setDamage(stack.getDamage() - 10);
+                stack.setDamage(stack.getDamage() - 6);
             }
         } else {
             stack.setDamage(stack.getDamage() - 10);

@@ -34,14 +34,14 @@ public class ItemStackMixin {
     }
 
     @Inject(method = "postMine", at = @At("HEAD"))
-    private void postMineIntercept(World world, BlockState state, BlockPos pos, PlayerEntity player, CallbackInfo ci){
+    protected void postMineIntercept(World world, BlockState state, BlockPos pos, PlayerEntity player, CallbackInfo ci){
         if (world.getServer()!=null) {
-            if (BlockTags.BASE_STONE_OVERWORLD.contains(state.getBlock())) {
+            if (state.isIn(BlockTags.BASE_STONE_OVERWORLD)) {
                 ItemStack itemStack = player.getMainHandStack();
                 if (itemStack != null && EnchantmentHelper.getLevel(STONE_MENDING, itemStack) > 0) {
                     mendTool(world, itemStack, EnchantmentHelper.getLevel(STONE_MENDING, itemStack));
                 }
-            } else if (BlockTags.BASE_STONE_NETHER.contains(state.getBlock())) {
+            } else if (state.isIn(BlockTags.BASE_STONE_NETHER)) {
                 ItemStack itemStack = player.getMainHandStack();
                 if (itemStack != null && EnchantmentHelper.getLevel(NETHER_MENDING, itemStack) > 0){
                     mendTool(world, itemStack, EnchantmentHelper.getLevel(NETHER_MENDING, itemStack));
