@@ -52,7 +52,8 @@ public class Paulstweaks implements ModInitializer {
             "acacia",
             "dark_oak",
             "crimson",
-            "warped"
+            "warped",
+            "mangrove"
     };
 
     @Override
